@@ -1,6 +1,9 @@
 from simulation.artifact import simulate_artifact
 from simulation.talent_books import simulate_multiple_talent_runs
+from core.talents import compute_combo_multiplier, load_talent_multipliers
 import copy
+
+TALENT_MULTIPLIERS = load_talent_multipliers("data/talent_multipliers.csv")
 
 def simulate_artifact_farm(character, resin_spent=20, artifact_type="Sands"):
     """
@@ -18,7 +21,7 @@ def simulate_artifact_farm(character, resin_spent=20, artifact_type="Sands"):
         crit_rate=character.crit_rate,
         crit_dmg=character.crit_dmg,
         dmg_bonus=character.dmg_bonus,
-        enemy_level=90,
+        enemy_level=100,
         enemy_resistance=0.1
     )
 
@@ -30,13 +33,12 @@ def simulate_artifact_farm(character, resin_spent=20, artifact_type="Sands"):
         apply_substat_to_character(character, stat, value)
 
     # Damage after applying artifact
-    # ✅ Correct
     dmg_after = character.expected_damage_output(
         talent_multiplier=character.talent_multiplier,
         crit_rate=character.crit_rate,
         crit_dmg=character.crit_dmg,
         dmg_bonus=character.dmg_bonus,
-        enemy_level=90,
+        enemy_level=100,
         enemy_resistance=0.1
     )
 
@@ -56,7 +58,6 @@ def simulate_artifact_farm(character, resin_spent=20, artifact_type="Sands"):
 def apply_substat_to_character(character, substat, value):
     """
     Adds a substat value to the character's relevant stat.
-    You can expand this later to include crit, ER, EM, etc.
     """
     if substat == "ATK%":
         character.base_stats["atk"] *= (1 + value / 100)
@@ -70,62 +71,84 @@ def apply_substat_to_character(character, substat, value):
         character.base_stats["def"] *= (1 + value / 100)
     elif substat == "Flat DEF":
         character.base_stats["def"] += value
-    # You can store other effects in character object later
-    # (e.g., crit_rate, crit_dmg, ER, EM)
+    elif substat == "CRIT Rate%":
+        character.crit_rate += value / 100
+    elif substat == "CRIT DMG%":
+        character.crit_dmg += value / 100
+    elif substat == "Energy Recharge%":
+        # You could later use this for buff logic or ER-based scaling
+        pass
+    elif substat == "Elemental Mastery":
+        # Placeholder: implement actual EM logic later
+        pass
+
 
 def simulate_talent_farm(character, resin_spent=60, domain_level=4):
-    """
-    Simulates farming talent books and upgrading character talents based on cumulative inventory.
-    Assumes: 20 resin per run, one upgrade from level 6 to 7 costs 9 Guides + 1 Philosophy.
-    """
     runs = resin_spent // 20
     upgrade_success = False
 
-    # Clone character to preserve baseline stats
+    # Compute before-upgrade damage
     char_before = copy.deepcopy(character)
-
     dmg_before = char_before.expected_damage_output(
-        talent_multiplier=character.talent_multiplier,
+        combo=character.default_combo,
+        skill=character.default_skill,
+        level=character.talent_level,
+        multipliers=TALENT_MULTIPLIERS,
         crit_rate=character.crit_rate,
         crit_dmg=character.crit_dmg,
         dmg_bonus=character.dmg_bonus,
-        enemy_level=90,
+        enemy_level=100,
         enemy_resistance=0.1
     )
 
     # Simulate book farming
     books = simulate_multiple_talent_runs(runs=runs, domain_level=domain_level)
+    for k, v in books.items():
+        character.book_inventory[k] += v
 
-    # Add books to character's inventory
-    for key in books:
-        character.book_inventory[key] += books[key]
-
-    # Upgrade cost table: level → (Guides, Philosophies)
+    # Upgrade cost in "Teachings"
     upgrade_costs = {
-        6: (9, 1),
-        7: (12, 1),
-        8: (16, 2),
-        9: (20, 2),
+        1: 3,
+        2: 6,
+        3: 12,
+        4: 18,
+        5: 27,
+        6: 36,
+        7: 54,
+        8: 108,
+        9: 144
     }
 
     while character.talent_level in upgrade_costs:
-        req_guides, req_philo = upgrade_costs[character.talent_level]
-        if (character.book_inventory['Guides'] >= req_guides and
-                character.book_inventory['Philosophies'] >= req_philo):
-            character.book_inventory['Guides'] -= req_guides
-            character.book_inventory['Philosophies'] -= req_philo
+        required_teachings = upgrade_costs[character.talent_level]
+        total_teachings = (
+            character.book_inventory['Teachings']
+            + character.book_inventory['Guides'] * 3
+            + character.book_inventory['Philosophies'] * 9
+        )
+
+        if total_teachings >= required_teachings:
+            # Consume books in order: Teachings > Guides > Philosophies
+            remaining = required_teachings
+            for tier, value, name in [(1, 1, 'Teachings'), (3, 1, 'Guides'), (9, 1, 'Philosophies')]:
+                used = min(character.book_inventory[name], remaining // tier)
+                character.book_inventory[name] -= used
+                remaining -= used * tier
             character.talent_level += 1
-            character.talent_multiplier *= 1.1
             upgrade_success = True
         else:
-            break  # Not enough books to proceed
+            break
 
+    # Compute after-upgrade damage
     dmg_after = character.expected_damage_output(
-        talent_multiplier=character.talent_multiplier,
+        combo=character.default_combo,
+        skill=character.default_skill,
+        level=character.talent_level,
+        multipliers=TALENT_MULTIPLIERS,
         crit_rate=character.crit_rate,
         crit_dmg=character.crit_dmg,
         dmg_bonus=character.dmg_bonus,
-        enemy_level=90,
+        enemy_level=100,
         enemy_resistance=0.1
     )
 
@@ -134,7 +157,7 @@ def simulate_talent_farm(character, resin_spent=60, domain_level=4):
         'activity': 'talent_farm',
         'domain_level': domain_level,
         'books_gained': books,
-        'book_inventory': dict(character.book_inventory),  # snapshot
+        'book_inventory': dict(character.book_inventory),
         'upgrade_applied': upgrade_success,
         'talent_level': character.talent_level,
         'damage_before': dmg_before,

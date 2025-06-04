@@ -36,7 +36,7 @@ def calculate_damage(
     """
 
     # Base Damage
-    base_damage = base_stat * talent_multiplier
+    base_damage = base_stat * talent_multiplier/100
 
     # Critical Multiplier
     crit_multiplier = 1 + crit_rate * crit_dmg

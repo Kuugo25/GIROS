@@ -29,8 +29,8 @@ def generate_artifact_main_stat(artifact_type):
             'HP%': 19.25,
             'ATK%': 19.25,
             'DEF%': 19,
-            'Crit Rate%': 10,
-            'Crit DMG': 10,
+            'CRIT Rate%': 10,
+            'CRIT DMG%': 10,
             'Healing Bonus%': 10,
             'Elemental Mastery': 4
         }
