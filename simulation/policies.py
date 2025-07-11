@@ -1,3 +1,4 @@
+# policies.py
 class ResinPolicy:
     def choose_activity(self, character):
         raise NotImplementedError

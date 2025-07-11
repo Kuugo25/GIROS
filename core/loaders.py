@@ -1,3 +1,4 @@
+# core/loaders.py
 import pandas as pd
 from core.models import Character, Weapon
 

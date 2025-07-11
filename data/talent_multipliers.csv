@@ -1,92 +1,364 @@
-character,skill,level,type,multiplier
-Hu Tao,AA,1,N1,46.89
-Hu Tao,AA,1,N2,48.25
-Hu Tao,AA,1,N3,61.05
-Hu Tao,AA,1,N4,65.64
-Hu Tao,AA,1,N5,68.47
-Hu Tao,AA,1,N6,85.96
-Hu Tao,AA,1,C,135.96
-Hu Tao,AA,2,N1,50.08
-Hu Tao,AA,2,N2,51.54
-Hu Tao,AA,2,N3,65.21
-Hu Tao,AA,2,N4,70.12
-Hu Tao,AA,2,N5,73.14
-Hu Tao,AA,2,N6,91.82
-Hu Tao,AA,2,C,145.23
-Hu Tao,AA,3,N1,53.28
-Hu Tao,AA,3,N2,54.83
-Hu Tao,AA,3,N3,69.38
-Hu Tao,AA,3,N4,74.59
-Hu Tao,AA,3,N5,77.81
-Hu Tao,AA,3,N6,97.68
-Hu Tao,AA,3,C,154.5
-Hu Tao,AA,4,N1,57.54
-Hu Tao,AA,4,N2,59.22
-Hu Tao,AA,4,N3,74.92
-Hu Tao,AA,4,N4,80.56
-Hu Tao,AA,4,N5,84.04
-Hu Tao,AA,4,N6,105.49
-Hu Tao,AA,4,C,166.86
-Hu Tao,AA,5,N1,60.74
-Hu Tao,AA,5,N2,62.51
-Hu Tao,AA,5,N3,79.09
-Hu Tao,AA,5,N4,85.03
-Hu Tao,AA,5,N5,88.7
-Hu Tao,AA,5,N6,111.36
-Hu Tao,AA,5,C,176.13
-Hu Tao,AA,6,N1,64.47
-Hu Tao,AA,6,N2,66.35
-Hu Tao,AA,6,N3,83.94
-Hu Tao,AA,6,N4,90.26
-Hu Tao,AA,6,N5,94.15
-Hu Tao,AA,6,N6,118.19
-Hu Tao,AA,6,C,186.94
-Hu Tao,AA,7,N1,69.26
-Hu Tao,AA,7,N2,71.28
-Hu Tao,AA,7,N3,90.19
-Hu Tao,AA,7,N4,96.97
-Hu Tao,AA,7,N5,101.15
-Hu Tao,AA,7,N6,126.98
-Hu Tao,AA,7,C,200.85
-Hu Tao,AA,8,N1,74.06
-Hu Tao,AA,8,N2,76.22
-Hu Tao,AA,8,N3,96.43
-Hu Tao,AA,8,N4,103.68
-Hu Tao,AA,8,N5,108.16
-Hu Tao,AA,8,N6,135.78
-Hu Tao,AA,8,C,214.75
-Hu Tao,AA,9,N1,78.85
-Hu Tao,AA,9,N2,81.15
-Hu Tao,AA,9,N3,102.68
-Hu Tao,AA,9,N4,110.4
-Hu Tao,AA,9,N5,115.16
-Hu Tao,AA,9,N6,144.57
-Hu Tao,AA,9,C,228.66
-Hu Tao,AA,10,N1,83.65
-Hu Tao,AA,10,N2,86.09
-Hu Tao,AA,10,N3,108.92
-Hu Tao,AA,10,N4,117.11
-Hu Tao,AA,10,N5,122.16
-Hu Tao,AA,10,N6,153.36
-Hu Tao,AA,10,C,242.56
-Hu Tao,AA,11,N1,88.44
-Hu Tao,AA,11,N2,91.02
-Hu Tao,AA,11,N3,115.16
-Hu Tao,AA,11,N4,123.82
-Hu Tao,AA,11,N5,129.17
-Hu Tao,AA,11,N6,162.15
-Hu Tao,AA,11,C,256.47
-Hu Tao,Skill,1,ATK_Bonus%HP,3.84
-Hu Tao,Skill,2,ATK_Bonus%HP,4.07
-Hu Tao,Skill,3,ATK_Bonus%HP,4.3
-Hu Tao,Skill,4,ATK_Bonus%HP,4.6
-Hu Tao,Skill,5,ATK_Bonus%HP,4.83
-Hu Tao,Skill,6,ATK_Bonus%HP,5.06
-Hu Tao,Skill,7,ATK_Bonus%HP,5.36
-Hu Tao,Skill,8,ATK_Bonus%HP,5.66
-Hu Tao,Skill,9,ATK_Bonus%HP,5.96
-Hu Tao,Skill,10,ATK_Bonus%HP,6.26
-Hu Tao,Skill,11,ATK_Bonus%HP,6.55
-Hu Tao,Skill,12,ATK_Bonus%HP,6.85
-Hu Tao,Skill,13,ATK_Bonus%HP,7.15
-Hu Tao,Skill,14,ATK_Bonus%HP,7.45
+character,skill,level,type,multiplier,scaling
+Hu Tao,AA,1,N1,46.89,ATK
+Hu Tao,AA,1,N2,48.25,ATK
+Hu Tao,AA,1,N3,61.05,ATK
+Hu Tao,AA,1,N4,65.64,ATK
+Hu Tao,AA,1,N5,68.47,ATK
+Hu Tao,AA,1,N6,85.96,ATK
+Hu Tao,AA,1,C,135.96,ATK
+Hu Tao,AA,2,N1,50.08,ATK
+Hu Tao,AA,2,N2,51.54,ATK
+Hu Tao,AA,2,N3,65.21,ATK
+Hu Tao,AA,2,N4,70.12,ATK
+Hu Tao,AA,2,N5,73.14,ATK
+Hu Tao,AA,2,N6,91.82,ATK
+Hu Tao,AA,2,C,145.23,ATK
+Hu Tao,AA,3,N1,53.28,ATK
+Hu Tao,AA,3,N2,54.83,ATK
+Hu Tao,AA,3,N3,69.38,ATK
+Hu Tao,AA,3,N4,74.59,ATK
+Hu Tao,AA,3,N5,77.81,ATK
+Hu Tao,AA,3,N6,97.68,ATK
+Hu Tao,AA,3,C,154.5,ATK
+Hu Tao,AA,4,N1,57.54,ATK
+Hu Tao,AA,4,N2,59.22,ATK
+Hu Tao,AA,4,N3,74.92,ATK
+Hu Tao,AA,4,N4,80.56,ATK
+Hu Tao,AA,4,N5,84.04,ATK
+Hu Tao,AA,4,N6,105.49,ATK
+Hu Tao,AA,4,C,166.86,ATK
+Hu Tao,AA,5,N1,60.74,ATK
+Hu Tao,AA,5,N2,62.51,ATK
+Hu Tao,AA,5,N3,79.09,ATK
+Hu Tao,AA,5,N4,85.03,ATK
+Hu Tao,AA,5,N5,88.7,ATK
+Hu Tao,AA,5,N6,111.36,ATK
+Hu Tao,AA,5,C,176.13,ATK
+Hu Tao,AA,6,N1,64.47,ATK
+Hu Tao,AA,6,N2,66.35,ATK
+Hu Tao,AA,6,N3,83.94,ATK
+Hu Tao,AA,6,N4,90.26,ATK
+Hu Tao,AA,6,N5,94.15,ATK
+Hu Tao,AA,6,N6,118.19,ATK
+Hu Tao,AA,6,C,186.94,ATK
+Hu Tao,AA,7,N1,69.26,ATK
+Hu Tao,AA,7,N2,71.28,ATK
+Hu Tao,AA,7,N3,90.19,ATK
+Hu Tao,AA,7,N4,96.97,ATK
+Hu Tao,AA,7,N5,101.15,ATK
+Hu Tao,AA,7,N6,126.98,ATK
+Hu Tao,AA,7,C,200.85,ATK
+Hu Tao,AA,8,N1,74.06,ATK
+Hu Tao,AA,8,N2,76.22,ATK
+Hu Tao,AA,8,N3,96.43,ATK
+Hu Tao,AA,8,N4,103.68,ATK
+Hu Tao,AA,8,N5,108.16,ATK
+Hu Tao,AA,8,N6,135.78,ATK
+Hu Tao,AA,8,C,214.75,ATK
+Hu Tao,AA,9,N1,78.85,ATK
+Hu Tao,AA,9,N2,81.15,ATK
+Hu Tao,AA,9,N3,102.68,ATK
+Hu Tao,AA,9,N4,110.4,ATK
+Hu Tao,AA,9,N5,115.16,ATK
+Hu Tao,AA,9,N6,144.57,ATK
+Hu Tao,AA,9,C,228.66,ATK
+Hu Tao,AA,10,N1,83.65,ATK
+Hu Tao,AA,10,N2,86.09,ATK
+Hu Tao,AA,10,N3,108.92,ATK
+Hu Tao,AA,10,N4,117.11,ATK
+Hu Tao,AA,10,N5,122.16,ATK
+Hu Tao,AA,10,N6,153.36,ATK
+Hu Tao,AA,10,C,242.56,ATK
+Hu Tao,AA,11,N1,88.44,ATK
+Hu Tao,AA,11,N2,91.02,ATK
+Hu Tao,AA,11,N3,115.16,ATK
+Hu Tao,AA,11,N4,123.82,ATK
+Hu Tao,AA,11,N5,129.17,ATK
+Hu Tao,AA,11,N6,162.15,ATK
+Hu Tao,AA,11,C,256.47,ATK
+Hu Tao,Skill,1,ATK_Bonus%HP,3.84,BUFF
+Hu Tao,Skill,2,ATK_Bonus%HP,4.07,BUFF
+Hu Tao,Skill,3,ATK_Bonus%HP,4.3,BUFF
+Hu Tao,Skill,4,ATK_Bonus%HP,4.6,BUFF
+Hu Tao,Skill,5,ATK_Bonus%HP,4.83,BUFF
+Hu Tao,Skill,6,ATK_Bonus%HP,5.06,BUFF
+Hu Tao,Skill,7,ATK_Bonus%HP,5.36,BUFF
+Hu Tao,Skill,8,ATK_Bonus%HP,5.66,BUFF
+Hu Tao,Skill,9,ATK_Bonus%HP,5.96,BUFF
+Hu Tao,Skill,10,ATK_Bonus%HP,6.26,BUFF
+Hu Tao,Skill,11,ATK_Bonus%HP,6.55,BUFF
+Hu Tao,Skill,12,ATK_Bonus%HP,6.85,BUFF
+Hu Tao,Skill,13,ATK_Bonus%HP,7.15,BUFF
+Hu Tao,Skill,14,ATK_Bonus%HP,7.45,BUFF
+Hu Tao,Burst,1,Q,303.27,ATK
+Hu Tao,Burst,2,Q,321.43,ATK
+Hu Tao,Burst,3,Q,339.59,ATK
+Hu Tao,Burst,4,Q,363.2,ATK
+Hu Tao,Burst,5,Q,381.36,ATK
+Hu Tao,Burst,6,Q,399.52,ATK
+Hu Tao,Burst,7,Q,423.133,ATK
+Hu Tao,Burst,8,Q,446.74,ATK
+Hu Tao,Burst,9,Q,470.34,ATK
+Hu Tao,Burst,10,Q,483.95,ATK
+Hu Tao,Burst,11,Q,517.56,ATK
+Hu Tao,Burst,12,Q,541.17,ATK
+Hu Tao,Burst,13,Q,564.78,ATK
+Hu Tao,Burst,14,Q,588,ATK
+Furina,AA,1,N1,48.39,ATK
+Furina,AA,1,N2,43.73,ATK
+Furina,AA,1,N3,55.12,ATK
+Furina,AA,1,N4,73.3,ATK
+Furina,AA,1,C,74.22,ATK
+Furina,AA,2,N1,52.32,ATK
+Furina,AA,2,N2,47.29,ATK
+Furina,AA,2,N3,59.61,ATK
+Furina,AA,2,N4,79.26,ATK
+Furina,AA,2,C,80.26,ATK
+Furina,AA,3,N1,56.26,ATK
+Furina,AA,3,N2,50.85,ATK
+Furina,AA,3,N3,64.09,ATK
+Furina,AA,3,N4,85.23,ATK
+Furina,AA,3,C,86.3,ATK
+Furina,AA,4,N1,61.89,ATK
+Furina,AA,4,N2,55.93,ATK
+Furina,AA,4,N3,70.5,ATK
+Furina,AA,4,N4,93.75,ATK
+Furina,AA,4,C,94.93,ATK
+Furina,AA,5,N1,65.83,ATK
+Furina,AA,5,N2,59.49,ATK
+Furina,AA,5,N3,74.99,ATK
+Furina,AA,5,N4,99.72,ATK
+Furina,AA,5,C,100.97,ATK
+Furina,AA,6,N1,70.33,ATK
+Furina,AA,6,N2,63.56,ATK
+Furina,AA,6,N3,80.12,ATK
+Furina,AA,6,N4,106.54,ATK
+Furina,AA,6,C,107.88,ATK
+Furina,AA,7,N1,76.52,ATK
+Furina,AA,7,N2,69.15,ATK
+Furina,AA,7,N3,87.17,ATK
+Furina,AA,7,N4,115.91,ATK
+Furina,AA,7,C,117.37,ATK
+Furina,AA,8,N1,82.71,ATK
+Furina,AA,8,N2,74.75,ATK
+Furina,AA,8,N3,94.22,ATK
+Furina,AA,8,N4,125.29,ATK
+Furina,AA,8,C,126.86,ATK
+Furina,AA,9,N1,88.9,ATK
+Furina,AA,9,N2,80.34,ATK
+Furina,AA,9,N3,101.27,ATK
+Furina,AA,9,N4,134.66,ATK
+Furina,AA,9,C,136.35,ATK
+Furina,AA,10,N1,95.65,ATK
+Furina,AA,10,N2,86.44,ATK
+Furina,AA,10,N3,108.96,ATK
+Furina,AA,10,N4,144.89,ATK
+Furina,AA,10,C,146.71,ATK
+Furina,AA,11,N1,102.4,ATK
+Furina,AA,11,N2,92.54,ATK
+Furina,AA,11,N3,116.65,ATK
+Furina,AA,11,N4,155.12,ATK
+Furina,AA,11,C,157.07,ATK
+Furina,Skill,1,OusiaBubble,7.86,HP
+Furina,Skill,1,GentilhommeUsher,5.96,HP
+Furina,Skill,1,SurintendanteChevalmarin,3.23,HP
+Furina,Skill,1,MademoiselleCrabaletta,8.29,HP
+Furina,Skill,2,OusiaBubble,8.45,HP
+Furina,Skill,2,GentilhommeUsher,6.41,HP
+Furina,Skill,2,SurintendanteChevalmarin,3.47,HP
+Furina,Skill,2,MademoiselleCrabaletta,8.91,HP
+Furina,Skill,3,OusiaBubble,9.04,HP
+Furina,Skill,3,GentilhommeUsher,6.85,HP
+Furina,Skill,3,SurintendanteChevalmarin,3.72,HP
+Furina,Skill,3,MademoiselleCrabaletta,9.53,HP
+Furina,Skill,4,OusiaBubble,9.83,HP
+Furina,Skill,4,GentilhommeUsher,7.45,HP
+Furina,Skill,4,SurintendanteChevalmarin,4.04,HP
+Furina,Skill,4,MademoiselleCrabaletta,10.36,HP
+Furina,Skill,5,OusiaBubble,10.42,HP
+Furina,Skill,5,GentilhommeUsher,7.9,HP
+Furina,Skill,5,SurintendanteChevalmarin,4.28,HP
+Furina,Skill,5,MademoiselleCrabaletta,10.98,HP
+Furina,Skill,6,OusiaBubble,11.01,HP
+Furina,Skill,6,GentilhommeUsher,8.34,HP
+Furina,Skill,6,SurintendanteChevalmarin,4.52,HP
+Furina,Skill,6,MademoiselleCrabaletta,11.6,HP
+Furina,Skill,7,OusiaBubble,11.8,HP
+Furina,Skill,7,GentilhommeUsher,8.94,HP
+Furina,Skill,7,SurintendanteChevalmarin,4.85,HP
+Furina,Skill,7,MademoiselleCrabaletta,12.43,HP
+Furina,Skill,8,OusiaBubble,12.58,HP
+Furina,Skill,8,GentilhommeUsher,9.54,HP
+Furina,Skill,8,SurintendanteChevalmarin,5.17,HP
+Furina,Skill,8,MademoiselleCrabaletta,13.26,HP
+Furina,Skill,9,OusiaBubble,13.37,HP
+Furina,Skill,9,GentilhommeUsher,10.13,HP
+Furina,Skill,9,SurintendanteChevalmarin,5.49,HP
+Furina,Skill,9,MademoiselleCrabaletta,14.09,HP
+Furina,Skill,10,OusiaBubble,14.16,HP
+Furina,Skill,10,GentilhommeUsher,10.73,HP
+Furina,Skill,10,SurintendanteChevalmarin,5.82,HP
+Furina,Skill,10,MademoiselleCrabaletta,14.92,HP
+Furina,Skill,11,OusiaBubble,14.94,HP
+Furina,Skill,11,GentilhommeUsher,11.32,HP
+Furina,Skill,11,SurintendanteChevalmarin,6.14,HP
+Furina,Skill,11,MademoiselleCrabaletta,15.75,HP
+Furina,Skill,12,OusiaBubble,15.73,HP
+Furina,Skill,12,GentilhommeUsher,11.92,HP
+Furina,Skill,12,SurintendanteChevalmarin,6.46,HP
+Furina,Skill,12,MademoiselleCrabaletta,16.58,HP
+Furina,Skill,13,OusiaBubble,16.71,HP
+Furina,Skill,13,GentilhommeUsher,12.67,HP
+Furina,Skill,13,SurintendanteChevalmarin,6.87,HP
+Furina,Skill,13,MademoiselleCrabaletta,17.61,HP
+Furina,Burst,1,Q,11.41,HP
+Furina,Burst,2,Q,12.26,HP
+Furina,Burst,3,Q,13.12,HP
+Furina,Burst,4,Q,14.26,HP
+Furina,Burst,5,Q,15.11,HP
+Furina,Burst,6,Q,15.97,HP
+Furina,Burst,7,Q,17.11,HP
+Furina,Burst,8,Q,18.25,HP
+Furina,Burst,9,Q,19.39,HP
+Furina,Burst,10,Q,20.53,HP
+Furina,Burst,11,Q,21.67,HP
+Furina,Burst,12,Q,22.81,HP
+Furina,Burst,13,Q,24.24,HP
+Furina,Burst,1,Fanfare DMG Bonus%,21,BUFF
+Furina,Burst,2,Fanfare DMG Bonus%,27,BUFF
+Furina,Burst,3,Fanfare DMG Bonus%,33,BUFF
+Furina,Burst,4,Fanfare DMG Bonus%,39,BUFF
+Furina,Burst,5,Fanfare DMG Bonus%,45,BUFF
+Furina,Burst,6,Fanfare DMG Bonus%,51,BUFF
+Furina,Burst,7,Fanfare DMG Bonus%,57,BUFF
+Furina,Burst,8,Fanfare DMG Bonus%,63,BUFF
+Furina,Burst,9,Fanfare DMG Bonus%,69,BUFF
+Furina,Burst,10,Fanfare DMG Bonus%,75,BUFF
+Furina,Burst,11,Fanfare DMG Bonus%,81,BUFF
+Furina,Burst,12,Fanfare DMG Bonus%,87,BUFF
+Furina,Burst,13,Fanfare DMG Bonus%,93,BUFF
+Bennett,AA,1,N1,44.55,ATK
+Bennett,AA,2,N1,48.17,ATK
+Bennett,AA,3,N1,51.80,ATK
+Bennett,AA,4,N1,56.98,ATK
+Bennett,AA,5,N1,60.61,ATK
+Bennett,AA,6,N1,64.75,ATK
+Bennett,AA,7,N1,70.45,ATK
+Bennett,AA,8,N1,76.15,ATK
+Bennett,AA,9,N1,81.84,ATK
+Bennett,AA,10,N1,88.06,ATK
+Bennett,AA,11,N1,94.28,ATK
+Bennett,AA,1,N2,42.74,ATK
+Bennett,AA,2,N2,46.22,ATK
+Bennett,AA,3,N2,49.70,ATK
+Bennett,AA,4,N2,54.67,ATK
+Bennett,AA,5,N2,58.15,ATK
+Bennett,AA,6,N2,62.13,ATK
+Bennett,AA,7,N2,67.59,ATK
+Bennett,AA,8,N2,73.06,ATK
+Bennett,AA,9,N2,78.53,ATK
+Bennett,AA,10,N2,84.49,ATK
+Bennett,AA,11,N2,90.45,ATK
+Bennett,AA,1,N3,54.61,ATK
+Bennett,AA,2,N3,59.05,ATK
+Bennett,AA,3,N3,63.50,ATK
+Bennett,AA,4,N3,69.85,ATK
+Bennett,AA,5,N3,74.30,ATK
+Bennett,AA,6,N3,79.38,ATK
+Bennett,AA,7,N3,86.36,ATK
+Bennett,AA,8,N3,93.34,ATK
+Bennett,AA,9,N3,100.33,ATK
+Bennett,AA,10,N3,107.95,ATK
+Bennett,AA,11,N3,115.57,ATK
+Bennett,AA,1,N4,59.68,ATK
+Bennett,AA,2,N4,64.54,ATK
+Bennett,AA,3,N4,69.40,ATK
+Bennett,AA,4,N4,76.34,ATK
+Bennett,AA,5,N4,81.20,ATK
+Bennett,AA,6,N4,86.75,ATK
+Bennett,AA,7,N4,94.38,ATK
+Bennett,AA,8,N4,102.02,ATK
+Bennett,AA,9,N4,109.65,ATK
+Bennett,AA,10,N4,117.98,ATK
+Bennett,AA,11,N4,126.31,ATK
+Bennett,AA,1,N5,71.90,ATK
+Bennett,AA,2,N5,77.75,ATK
+Bennett,AA,3,N5,83.60,ATK
+Bennett,AA,4,N5,91.96,ATK
+Bennett,AA,5,N5,97.81,ATK
+Bennett,AA,6,N5,104.50,ATK
+Bennett,AA,7,N5,113.70,ATK
+Bennett,AA,8,N5,122.89,ATK
+Bennett,AA,9,N5,132.09,ATK
+Bennett,AA,10,N5,142.12,ATK
+Bennett,AA,11,N5,152.15,ATK
+Bennett,Skill,1,Press,137.60,ATK
+Bennett,Skill,2,Press,147.92,ATK
+Bennett,Skill,3,Press,158.24,ATK
+Bennett,Skill,4,Press,172.00,ATK
+Bennett,Skill,5,Press,182.32,ATK
+Bennett,Skill,6,Press,192.64,ATK
+Bennett,Skill,7,Press,206.40,ATK
+Bennett,Skill,8,Press,220.16,ATK
+Bennett,Skill,9,Press,233.92,ATK
+Bennett,Skill,10,Press,247.68,ATK
+Bennett,Skill,11,Press,261.44,ATK
+Bennett,Skill,12,Press,275.20,ATK
+Bennett,Skill,13,Press,292.40,ATK
+Bennett,Skill,14,Press,310.00,ATK
+Bennett,Burst,1,Q,232.8,ATK
+Bennett,Burst,2,Q,250.26,ATK
+Bennett,Burst,3,Q,267.72,ATK
+Bennett,Burst,4,Q,291.00,ATK
+Bennett,Burst,5,Q,308.46,ATK
+Bennett,Burst,6,Q,325.92,ATK
+Bennett,Burst,7,Q,349.20,ATK
+Bennett,Burst,8,Q,372.48,ATK
+Bennett,Burst,9,Q,395.76,ATK
+Bennett,Burst,10,Q,419.04,ATK
+Bennett,Burst,11,Q,442.32,ATK
+Bennett,Burst,12,Q,465.60,ATK
+Bennett,Burst,13,Q,494.70,ATK
+Bennett,Burst,14,Q,524.00,ATK
+Bennett,Burst,1,InspirationHeal%,6.00,HP
+Bennett,Burst,2,InspirationHeal%,6.45,HP
+Bennett,Burst,3,InspirationHeal%,6.90,HP
+Bennett,Burst,4,InspirationHeal%,7.50,HP
+Bennett,Burst,5,InspirationHeal%,7.95,HP
+Bennett,Burst,6,InspirationHeal%,8.40,HP
+Bennett,Burst,7,InspirationHeal%,9.00,HP
+Bennett,Burst,8,InspirationHeal%,9.60,HP
+Bennett,Burst,9,InspirationHeal%,10.20,HP
+Bennett,Burst,10,InspirationHeal%,10.80,HP
+Bennett,Burst,11,InspirationHeal%,11.40,HP
+Bennett,Burst,12,InspirationHeal%,12.00,HP
+Bennett,Burst,13,InspirationHeal%,12.75,HP
+Bennett,Burst,14,InspirationHeal%,13.50,HP
+Bennett,Burst,1,InspirationHealFlat,577,HP
+Bennett,Burst,2,InspirationHealFlat,635,HP
+Bennett,Burst,3,InspirationHealFlat,697,HP
+Bennett,Burst,4,InspirationHealFlat,765,HP
+Bennett,Burst,5,InspirationHealFlat,837,HP
+Bennett,Burst,6,InspirationHealFlat,914,HP
+Bennett,Burst,7,InspirationHealFlat,995,HP
+Bennett,Burst,8,InspirationHealFlat,1082,HP
+Bennett,Burst,9,InspirationHealFlat,1174,HP
+Bennett,Burst,10,InspirationHealFlat,1270,HP
+Bennett,Burst,11,InspirationHealFlat,1371,HP
+Bennett,Burst,12,InspirationHealFlat,1477,HP
+Bennett,Burst,13,InspirationHealFlat,1587,HP
+Bennett,Burst,14,InspirationHealFlat,1703,HP
+Bennett,Burst,1,InspirationBuff,56,BUFF
+Bennett,Burst,2,InspirationBuff,60.2,BUFF
+Bennett,Burst,3,InspirationBuff,64.4,BUFF
+Bennett,Burst,4,InspirationBuff,70,BUFF
+Bennett,Burst,5,InspirationBuff,74.2,BUFF
+Bennett,Burst,6,InspirationBuff,78.4,BUFF
+Bennett,Burst,7,InspirationBuff,84,BUFF
+Bennett,Burst,8,InspirationBuff,89.6,BUFF
+Bennett,Burst,9,InspirationBuff,95.2,BUFF
+Bennett,Burst,10,InspirationBuff,100.8,BUFF
+Bennett,Burst,11,InspirationBuff,106.4,BUFF
+Bennett,Burst,12,InspirationBuff,112,BUFF
+Bennett,Burst,13,InspirationBuff,119,BUFF
+Bennett,Burst,14,InspirationBuff,126,BUFF

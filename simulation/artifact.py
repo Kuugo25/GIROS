@@ -1,3 +1,4 @@
+# simulation/artifact.py
 import random
 
 MAIN_STAT_VALUES_5_STAR = {

@@ -1,4 +1,5 @@
-from core.utils import calculate_damage
+# core/models.py
+from core.formulas import calculate_damage
 from core.character_buffs import apply_skill_buff
 import re
 
@@ -100,70 +101,102 @@ class Character:
 
     def expected_damage_output(
             self,
-            talent_multiplier=None,
             crit_rate=None,
             crit_dmg=None,
-            dmg_bonus=0,
             character_level=90,
             combo=None,
-            skill=None,
-            level=None,
             multipliers=None,
             enemy_level=100,
             enemy_resistance=0.1,
             **kwargs
     ):
-        buff_applied = False
-        original_atk = self.base_stats['atk']  # Save base ATK before any buff
+        from core.talents import compute_combo_hits
+        from core.formulas import calculate_damage
+        from core.summons import simulate_furina_e_summons
 
-        # Apply skill buff if 'E' is in combo
-        if combo and "E" in combo:
-            apply_skill_buff(self)
-            combo = combo.replace("E", "")
-            buff_applied = True
+        # Keep original combo around for Furina E-summons logic
+        original_combo = combo if combo is not None else self.default_combo
 
-        # Compute multiplier if combo is provided
-        if combo and skill and multipliers:
-            from core.talents import compute_combo_multiplier
-            level_map = {
-                "AA": self.aa_level,
-                "Skill": self.skill_level,
-                "Burst": self.burst_level
-            }
-            level = level_map.get(skill)
-            talent_multiplier = compute_combo_multiplier(multipliers, self.name, skill, level, combo)
+        # Store original ATK for Hu Tao buff revert
+        original_atk = self.base_stats['atk']
 
-        if talent_multiplier is None:
-            raise ValueError("talent_multiplier must be provided directly or computable from combo/skill/level")
+        # Clear any existing Hu Tao flat-ATK buff & reset talent buffs
+        if hasattr(self, "_artifact_bonuses"):
+            self._artifact_bonuses["flat_bonus"]["atk"] = 0
+        self._talent_buffs = {"percent_dmg": 0.0}
 
-        # Compute damage
-        damage = calculate_damage(
-            base_stat=self.base_stats['atk'],
-            talent_multiplier=talent_multiplier,
-            crit_rate = crit_rate if crit_rate is not None else self.crit_rate,
-            crit_dmg = crit_dmg if crit_dmg is not None else self.crit_dmg,
-            dmg_bonus = dmg_bonus if dmg_bonus is not None else self.dmg_bonus,
-            character_level=character_level,
-            enemy_level=enemy_level,
-            enemy_resistance=enemy_resistance,
-            **kwargs
-        )
+        # — Hu Tao E buff (if present) —
+        e_buffed = False
+        if self.name == "Hu Tao" and combo and "E" in combo:
+            if apply_skill_buff(self):
+                e_buffed = True
+                combo = combo.replace("E", "", 1)
 
-        # Revert the ATK buff if it was applied
-        if buff_applied:
+        # Re-sync after any buff changes
+        self.sync_stats(self.compute_total_stats())
+
+        total_dmg = 0.0
+
+        # — Furina: include full 30 s E-summons if combo had an E —
+        if self.name == "Furina" and "E" in original_combo:
+            # only apply Q buff if Q was before E in the original combo
+            apply_q = False
+            if "Q" in original_combo:
+                apply_q = original_combo.index("Q") < original_combo.index("E")
+
+            total_dmg += simulate_furina_e_summons(
+                character=self,
+                multipliers=multipliers,
+                apply_q_buff=apply_q
+            )
+            # strip that one E so hits loop won’t re-process it
+            combo = combo.replace("E", "", 1)
+
+        # — Now process all remaining hits in combo —
+        hits = compute_combo_hits(multipliers, self, combo)
+        for mult, scaling in hits:
+            # BUFF entries stack onto self._talent_buffs
+            if scaling == "BUFF":
+                self._talent_buffs["percent_dmg"] += mult
+                continue
+
+            # pick correct base stat
+            base_stat = self.total_hp if scaling == "HP" else self.total_atk
+
+            # assume element = vision for Skill/Burst, else Physical
+            element = self.vision if scaling != "Physical" else "Physical"
+
+            # collect all % dmg buffs
+            bonus = self.elemental_dmg_bonus.get(element, 0.0)
+            bonus += self._talent_buffs["percent_dmg"]
+
+            total_dmg += calculate_damage(
+                base_stat=base_stat,
+                talent_multiplier=mult,
+                crit_rate=crit_rate or self.crit_rate,
+                crit_dmg=crit_dmg or self.crit_dmg,
+                dmg_bonus=bonus,
+                character_level=character_level,
+                enemy_level=enemy_level,
+                enemy_resistance=enemy_resistance
+            )
+
+        # Revert Hu Tao’s E buff if applied
+        if e_buffed:
             self.base_stats['atk'] = original_atk
 
-        return damage
+        return total_dmg
 
     def sync_stats(self, stats: dict):
         """
         Apply computed total stats to the character object for accurate damage calculation.
         """
-        self.base_stats["atk"] = stats["total_atk"]
-        self.base_stats["hp"] = stats["total_hp"]
-        self.base_stats["def"] = stats["total_def"]
+        self.total_atk = stats["total_atk"]
+        self.total_hp = stats["total_hp"]
+        self.total_def = stats["total_def"]
         self.crit_rate = stats["crit_rate"]
         self.crit_dmg = stats["crit_dmg"]
+        self.elemental_dmg_bonus = stats["elemental_dmg_bonus"]
         self.dmg_bonus = stats["elemental_dmg_bonus"].get(self.vision, 0)
         # Optionally include these if your damage formula uses them:
         self.elemental_mastery = stats["elemental_mastery"]
@@ -222,6 +255,19 @@ class Character:
 
     def compute_total_stats(self):
 
+        if not hasattr(self, "_artifact_bonuses"):
+            self._artifact_bonuses = {
+                "percent_bonus": {"hp": 0.0, "atk": 0.0, "def": 0.0},
+                "flat_bonus": {"hp": 0.0, "atk": 0.0, "def": 0.0},
+                "crit_rate": 0.0,
+                "crit_dmg": 0.0,
+                "elemental_mastery": 0.0,
+                "energy_recharge": 0.0,
+                "healing_bonus": 0.0,
+                "elemental_dmg_bonus": {}
+            }
+
+        artifact_bonuses = getattr(self, "_artifact_bonuses", None)
         # Base stats
         base_hp = self.base_stats["hp"]
         base_atk = self.base_stats["atk"]
@@ -238,6 +284,21 @@ class Character:
         elemental_mastery = 0.0
         healing_bonus = 0.0
         energy_recharge = 1.0  # Base ER is 100%
+
+        if artifact_bonuses:
+            for k in percent_bonus:
+                percent_bonus[k] += artifact_bonuses["percent_bonus"].get(k, 0.0)
+            for k in flat_bonus:
+                flat_bonus[k] += artifact_bonuses["flat_bonus"].get(k, 0.0)
+
+            crit_rate += artifact_bonuses["crit_rate"]
+            crit_dmg += artifact_bonuses["crit_dmg"]
+            elemental_mastery += artifact_bonuses["elemental_mastery"]
+            energy_recharge += artifact_bonuses["energy_recharge"]
+            healing_bonus += artifact_bonuses["healing_bonus"]
+
+            for elem, val in artifact_bonuses["elemental_dmg_bonus"].items():
+                elemental_dmg_bonus[elem] += val
 
         # Ascension special stat
         if self.special_stat_type == "HP%":

@@ -1,73 +1,74 @@
-def calculate_damage(
-    base_stat,
-    talent_multiplier,
-    crit_rate,
-    crit_dmg,
-    dmg_bonus,
-    enemy_level,
-    character_level,
-    enemy_resistance,
-    def_ignore=0.0,
-    def_reduction=0.0,
-    reaction_multiplier=1.0,
-    em=0,
-    reaction_type=None
+# core/utils.py
+
+import pandas as pd
+from core.models import Character, Weapon
+from core.talents import load_talent_multipliers
+from core.character_buffs import init_buffs
+
+TALENT_MULTIPLIERS = load_talent_multipliers("../data/talent_multipliers.csv")
+init_buffs(TALENT_MULTIPLIERS)
+
+CHARACTER_PATH = "../data/genshin_characters_v1.csv"
+WEAPON_PATH = "../data/genshin_weapons_v6.csv"
+
+# Loads in raw character data from CSV for base character
+def make_clean_character(character_name: str, weapon_name: str = None, artifacts: dict = None) -> Character:
+    # Load character
+    char_df = pd.read_csv(CHARACTER_PATH)
+    char_row = char_df[char_df["character_name"] == character_name].iloc[0]
+    character = Character.load_from_csv_row(char_row)
+
+    # Equip weapon if provided
+    if weapon_name:
+        weap_df = pd.read_csv(WEAPON_PATH)
+        match = weap_df[weap_df["weapon_name"].str.contains(weapon_name, case=False)]
+        if match.empty:
+            raise ValueError(f"Weapon '{weapon_name}' not found.")
+        weapon = Weapon.load_from_csv_row(match.iloc[0])
+        character.weapon = weapon
+
+    # Equip artifacts if provided
+    if artifacts:
+        character.artifacts = artifacts
+
+    return character
+
+# Allows talent level specification, one-step initializer (levels, artifacts, combo)
+def character_factory(
+    name="Hu Tao",
+    weapon_name="Homa",
+    artifacts=None,
+    aa_level=6, skill_level=6, burst_level=6,
+    combo="E12N1C", skill_type="AA"
 ):
+    char = make_clean_character(name, weapon_name, artifacts)
+    char.aa_level = aa_level
+    char.skill_level = skill_level
+    char.burst_level = burst_level
+    char.default_combo = combo
+    char.default_skill = skill_type
+
+    # Only sync to base stats (not computed stats!)
+    char.sync_stats(char.compute_total_stats())
+
+    return char
+
+# Wraps into zero-arg factory
+def build_character_factory(name, weapon_name=None, artifacts=None, aa_level=1, skill_level=1, burst_level=1,
+                            combo=None, skill_type="AA"):
     """
-    Calculate the expected damage output based on Genshin Impact's damage formula.
-
-    Parameters:
-    - base_stat (float): The main stat used for damage calculation (e.g., ATK, HP, DEF).
-    - talent_multiplier (float): The talent scaling multiplier (e.g., 2.0 for 200%).
-    - crit_rate (float): Critical hit rate (0 to 1).
-    - crit_dmg (float): Critical damage bonus (e.g., 0.5 for 50%).
-    - dmg_bonus (float): Total damage bonus percentage (e.g., 0.2 for 20%).
-    - enemy_level (int): The level of the enemy.
-    - character_level (int): The level of the character.
-    - enemy_resistance (float): Enemy's resistance to the damage type (e.g., 0.1 for 10%).
-    - def_ignore (float): Percentage of enemy defense ignored (0 to 1).
-    - def_reduction (float): Percentage of enemy defense reduced (0 to 1).
-    - reaction_multiplier (float): Multiplier for elemental reactions (e.g., 1.5 for Melt).
-    - em (float): Elemental Mastery of the character.
-    - reaction_type (str): Type of elemental reaction ('amplifying' or 'transformative').
-
-    Returns:
-    - float: The calculated damage output.
+    Returns a reusable function that builds a clean Character object with specified setup.
     """
-
-    # Base Damage
-    base_damage = base_stat * talent_multiplier/100
-
-    # Critical Multiplier
-    crit_multiplier = 1 + crit_rate * crit_dmg
-
-    # Damage Bonus Multiplier
-    dmg_bonus_multiplier = 1 + dmg_bonus
-
-    # Defense Multiplier
-    def_multiplier = (character_level + 100) / (
-        (1 - def_reduction) * (1 - def_ignore) * (enemy_level + 100) + character_level + 100
-    )
-
-    # Resistance Multiplier
-    if enemy_resistance < 0:
-        res_multiplier = 1 - (enemy_resistance / 2)
-    elif enemy_resistance < 0.75:
-        res_multiplier = 1 - enemy_resistance
-    else:
-        res_multiplier = 1 / (4 * enemy_resistance + 1)
-
-    # Reaction Bonus Multiplier
-    if reaction_type == 'amplifying':
-        em_bonus = 2.78 * em / (em + 1400)
-        reaction_bonus_multiplier = reaction_multiplier * (1 + em_bonus)
-    elif reaction_type == 'transformative':
-        em_bonus = 16 * em / (em + 2000)
-        reaction_bonus_multiplier = reaction_multiplier * (1 + em_bonus)
-    else:
-        reaction_bonus_multiplier = 1.0
-
-    # Total Damage Calculation
-    damage = base_damage * crit_multiplier * dmg_bonus_multiplier * def_multiplier * res_multiplier * reaction_bonus_multiplier
-
-    return damage
+    def factory():
+        from core.utils import character_factory
+        return character_factory(
+            name=name,
+            weapon_name=weapon_name,
+            artifacts=artifacts,
+            aa_level=aa_level,
+            skill_level=skill_level,
+            burst_level=burst_level,
+            combo=combo,
+            skill_type=skill_type
+        )
+    return factory
